@@ -1,0 +1,12 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: Install & Setup
+    init: |
+      solana --version
+      anchor --version
+      rustc --version
+      node --version
+    command: |
+      echo "Ready to build your Anchor project!"

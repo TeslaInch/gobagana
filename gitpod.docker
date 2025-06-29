@@ -1,0 +1,16 @@
+FROM gitpod/workspace-full
+
+# Install Solana CLI
+RUN sh -c "$(curl -sSfL https://release.solana.com/v1.18.11/install)"
+ENV PATH="/root/.local/share/solana/install/active_release/bin:${PATH}"
+
+# Install Rust (via rustup)
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# Install Anchor
+RUN cargo install --git https://github.com/coral-xyz/anchor avm --locked --force
+RUN avm install latest && avm use latest
+
+# Verify everything
+RUN solana --version && anchor --version && rustc --version
